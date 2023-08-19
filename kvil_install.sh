@@ -81,8 +81,9 @@ echo -e "${GREEN}Python executable path: ${BLUE}$python_path${RESET}"
 read -p $"Press ctrl+c to terminate. Enter to continue..."
 
 draw_split_line " Install deps "
-pip install numpy==1.23.1 fvcore
-conda install -y pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+pip install numpy==1.23.1 fvcore cmake
+#conda install -y pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+pip3 install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
 
 
 
@@ -106,7 +107,7 @@ if [[ ! -d "$PROJECT_PATH_CONTROL/robot-vision" ]]; then
 fi
 echo -e "${BLUE}Installing robot-vision${RESET}"
 cd "$PROJECT_PATH_CONTROL/robot-vision" || return
-pip install -e .
+pip install -e .[mediapipe]
 
 
 
@@ -122,3 +123,7 @@ pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.co
 cd "$PROJECT_PATH_CONTROL/kvil" || return
 pip install -e .
 draw_split_line " Done "
+
+
+
+cd "$current_path" || return
